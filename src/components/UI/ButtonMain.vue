@@ -25,7 +25,6 @@ export default {
 }
 
 .button_main:hover {
-    scale: 1.05;
     transition: .25s;
     box-shadow: rgba(80, 63, 205, 0.5) 0 1px 30px;
 }

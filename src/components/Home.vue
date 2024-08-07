@@ -11,7 +11,7 @@
             Комплексный анализ публикаций, получение данных
             в формате PDF на электронную почту.
         </p>
-        <button-main style="width:335px; margin-bottom: 200px;" >Запросить данные</button-main>
+        <button-main style="width:335px; margin-bottom: 200px;" @click="$router.push('search')">Запросить данные</button-main>
     </div>
   </section>
 </template>
@@ -23,6 +23,10 @@ export default {
 </script>
 
 <style scoped>
+p {
+    font-size: 18px;
+    font-weight: 400;
+}
 
 .home {
     width: 100%;
@@ -31,6 +35,7 @@ export default {
 }
 
 .home__content {
+    margin: 0 20px;
     display: flex;
     width: 1320px;
     background: right url(@/assets/home.png);
@@ -50,6 +55,10 @@ export default {
 @media screen and (max-width: 700px){
     .home {
         padding-top: 93px;
+    }
+
+    .home__content {
+        margin: 0 20px;
     }
 
     .home__content {

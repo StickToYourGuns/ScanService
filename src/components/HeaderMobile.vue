@@ -1,4 +1,7 @@
 <template>
+    <transition>
+        <mobile-menu v-model:show="mobileMenuVisible" />
+    </transition>
     <div class="header">
         <div class="header__content">
             <div class="header__content__logo">
@@ -6,13 +9,6 @@
                     <img @click="$router.push('/')" src="@/assets/logo.png" alt="" style="cursor: pointer;">
                 </div>
             </div>
-            <nav class="header__content__navbar">
-                <ul>
-                    <router-link to="/" class="header__content__navbar-link">Главная</router-link>
-                    <router-link to="/" class="header__content__navbar-link">Тарифы</router-link>
-                    <router-link to="/" class="header__content__navbar-link">FAQ</router-link>
-                </ul>
-            </nav>
             <!-- if registred -->
             <div v-if="this.isLogged" class="header__content__user">
                 <div class="header__content__user-info">
@@ -25,22 +21,16 @@
                         <p>{{ userCompanies.companyLimit }}</p>
                     </div>
                 </div>
-                <div class="header__content__user-menu">
-                    <div class="header__content__user-menu__content">
-                        <p>Артём П.</p>
-                        <p @click="this.logOut">Выйти</p>
-                    </div>
-                    <div class="header__content__user-menu__avatar">
-                        <img src="@/assets/avatar.jpg" alt="">
-                    </div>
+            </div>
+            <nav class="header__content__navbar">
+                <div class="header__content__navbar__mobile-menu" @click="showMobileMenu">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi-list"
+                        viewBox="0 0 16 16">
+                        <path fill-rule="evenodd"
+                            d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5" />
+                    </svg>
                 </div>
-            </div>
-            <!-- if non registred -->
-            <div v-else class="header__content__register">
-                <button class="signUp">Зарегистрироваться</button>
-                <hr class="signHr">
-                <router-link to="/auth" class="signIn">Войти</router-link>
-            </div>
+            </nav>
         </div>
     </div>
 </template>
@@ -86,10 +76,24 @@ p {
     font-weight: 400;
 }
 
+.v-enter-active,
+.v-leave-active {
+    transition: opacity 0.25s ease;
+}
+
+.v-enter-from,
+.v-leave-to {
+    opacity: 0;
+}
+
 .header {
     width: 100%;
     display: flex;
     justify-content: center;
+    position: fixed;
+    background-color: #ffffff90;
+    z-index: 5;
+    backdrop-filter: blur(20px);
 }
 
 .header__content {
@@ -99,13 +103,14 @@ p {
     height: 93px;
     width: 1320px;
     margin: 0 20px;
+    position: relative;
+    gap: 20px;
 }
 
 .header__content__logo {
     display: flex;
-    justify-content: flex-start;
     height: 80px;
-    /* width: 30%; */
+    width: 100px;
 }
 
 .header__content__logo img {
@@ -116,32 +121,9 @@ p {
 
 .header__content__navbar {
     width: 240px;
-}
-
-.header__content__navbar__hamburger-menu {
-    display: none;
-}
-
-ul {
-    display: flex;
-    justify-content: space-between;
-    list-style: none;
+    width: auto;
     cursor: pointer;
-    margin: 0;
-    padding: 0;
-}
-
-.header__content__navbar-link {
-    font-weight: 400;
-    font-size: 14px;
-    transition: 1s;
-    text-decoration: none;
-    color: var(--color2);
-}
-
-.header__content__navbar-link:hover {
-    font-weight: 600;
-    transition: .25s;
+    margin-right: 10px;
 }
 
 .header__content__register {
@@ -203,14 +185,15 @@ ul {
 }
 
 .header__content__navbar__mobile-menu {
-    display: none;
+    display: block;
 }
 
 .header__content__user {
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    gap: 10px;
+    gap: 10%;
+    margin-left: auto;
 }
 
 .header__content__user-info {
@@ -239,75 +222,4 @@ ul {
     font-weight: 700;
     color: #8AC540;
 }
-
-.header__content__user-menu {
-    display: flex;
-    height: 40px;
-    gap: 10px;
-    min-width: 120px;
-}
-
-.header__content__user-menu__content {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: flex-end;
-}
-.header__content__user-menu__content>p:first-child {
-    font-size: 14px;
-    opacity: .7;
-}
-.header__content__user-menu__content>p:last-child {
-    font-size: 12px;
-    opacity: .4;
-    cursor: pointer;
-    transition: .25s;
-}
-
-.header__content__user-menu__content>p:last-child:hover {
-    opacity: 1;
-    transition: .25s;
-}
-
-.header__content__user-menu__avatar{
-    height: 40px;
-    width: 40px;
-}
-
-.header__content__user-menu__avatar>img {
-    object-fit: cover;
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
-}
-/* @media screen and (max-width: 700px) {
-    .header {
-        position: fixed;
-        background-color: #ffffff90;
-        z-index: 5;
-        backdrop-filter: blur(20px);
-    }
-
-    .header__content {
-        position: relative;
-    }
-
-    .header__content__navbar {
-        width: auto;
-        cursor: pointer;
-        margin-right: 10px;
-    }
-
-    .header__content__register {
-        display: none;
-    }
-
-    .header__content__navbar__mobile-menu {
-        display: block;
-    }
-
-    ul {
-        display: none
-    }
-} */
 </style>

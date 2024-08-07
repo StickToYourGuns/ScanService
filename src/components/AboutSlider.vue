@@ -58,26 +58,29 @@ export default defineComponent({
 </script>
 
 <style scoped>
+p {
+    font-size: 18px;
+    font-weight: 400;
+}
+
 .carousel__slide {
-    padding: 30px 10px;
+    padding: 10px 10px;
 }
 
 .about__slider__content {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     border-radius: 10px;
     min-height: 100%;
     max-width: 400px;
-    /* width: 30%; */
     padding: 20px 30px;
-    transition: .25s;
-    /* margin: 100px 0; */
+    transition: .5s;
 }
 
 .about__slider__content:hover {
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
     transition: .25s;
 }
 

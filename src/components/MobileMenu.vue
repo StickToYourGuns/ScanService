@@ -1,26 +1,43 @@
 <template>
     <div class="mobile__menu" v-if="show" @click.stop="hideMobileMenu">
         <div @click.stop class="mobile__menu__content">
-            <svg @click="hideMobileMenu" class="mobile__menu__content__close" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white"
-                viewBox="0 0 16 16">
+            <svg @click="hideMobileMenu" class="mobile__menu__content__close" xmlns="http://www.w3.org/2000/svg"
+                width="16" height="16" fill="white" viewBox="0 0 16 16">
                 <path
                     d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z" />
             </svg>
             <ul>
-                <li>Главная</li>
-                <li>Тарифы</li>
-                <li>FAQ</li>
+                <router-link to="/" class="mobile__menu__content-link" @click="hideMobileMenu">Главная</router-link>
+                <router-link to="/" class="mobile__menu__content-link" @click="hideMobileMenu">Тарифы</router-link>
+                <router-link to="/" class="mobile__menu__content-link" @click="hideMobileMenu">FAQ</router-link>
             </ul>
-            <div class="header__content__register__mobile">
+            <!-- if non registred -->
+            <div v-if="this.isLogged" class="header__content__register__mobile">
+                <div class="header__content__user-menu__content">
+                    <span @click="this.logOut" class="mobile__menu__content-link"
+                        style="opacity: .8; cursor: pointer;">Выйти</span>
+                </div>
+            </div>
+            <div v-else class="header__content__register__mobile">
                 <button class="signUp__mobile">Зарегистрироваться</button>
-                <button class="signIn__mobile">Войти</button>
+                <router-link to="/auth" class="signIn__mobile" @click="hideMobileMenu">Войти</router-link>
             </div>
         </div>
     </div>
 </template>
 
 <script>
+import { useAuthStore } from '@/store/auth';
+import { mapState } from 'pinia';
+import { useRouter } from 'vue-router';
+
 export default {
+    data() {
+        return {
+            router: useRouter(),
+            authStore: useAuthStore(),
+        }
+    },
     props: {
         show: {
             type: Boolean,
@@ -29,14 +46,32 @@ export default {
     },
     methods: {
         hideMobileMenu() {
-            console.log("clicked");
+            this.$emit('update:show', false)
+        },
+        logOut() {
+            this.authStore.logOut();
+            this.router.push('/')
             this.$emit('update:show', false)
         }
+    },
+    computed: {
+        ...mapState(useAuthStore, {
+            isLogged: 'getStatus',
+        })
     }
 }
 </script>
 
 <style scoped>
+p {
+    font-size: 18px;
+    font-weight: 400;
+}
+
+span {
+    font-weight: 400;
+    font-size: 14px;
+}
 
 ul {
     display: flex;
@@ -53,6 +88,15 @@ li {
     font-size: 14px;
     transition: .25s;
     margin-bottom: 20px;
+}
+
+.mobile__menu__content-link {
+    font-weight: 400;
+    font-size: 14px;
+    margin-bottom: 20px;
+    transition: 1s;
+    text-decoration: none;
+    color: var(--color3);
 }
 
 li:hover {
@@ -101,6 +145,12 @@ li:hover {
     height: 26px;
 }
 
+.header__content__user-menu__content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 .signUp__mobile {
     display: block;
     background: none;
@@ -122,6 +172,8 @@ li:hover {
     display: block;
     background-color: var(--color5);
     color: var(--color2);
+    text-align: center;
+    text-decoration: none;
     padding: 5px 10px;
     border: none;
     border-radius: 5px;
