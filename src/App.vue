@@ -1,28 +1,60 @@
 <template>
-    <header-main/>
-    <home/>
-    <about/>
-    <plans/>
-    <footer-main/>
+    <div class="app">
+        <header-mobile v-if="width < 700" />
+        <header-main v-else/>
+        <router-view></router-view>
+        <footer-main />
+    </div>
 </template>
 
 <script>
 import HeaderMain from "@/components/HeaderMain";
-import Home from "@/components/Home";
-import About from "@/components/About";
-import Plans from "@/components/Plans";
+import HeaderMobile from "@/components/HeaderMobile";
 import FooterMain from "@/components/FooterMain";
+import { useAuthStore } from "./store/auth";
 
 export default {
     components: {
-        HeaderMain, Home, About, Plans, FooterMain
+        HeaderMain, HeaderMobile, FooterMain
+    },
+    data() {
+        return {
+            authStore: useAuthStore(),
+            isAuth: false,
+            tokens: JSON.parse(localStorage.getItem('userTokens')),
+            date: new Date(),
+            width: window.innerWidth
+        }
     },
     methods: {
-        log() {
-            console.log(Header)
+        checkUser() {
+            // const tokens = JSON.parse(localStorage.getItem('userTokens'));
+            if (this.tokens) {
+                this.authStore.enter();
+            }
+            // console.log(tokens.token);
+        },
+        updateWidth() {
+            this.width = window.innerWidth;
         }
+    },
+    created() {
+        if (this.tokens) {
+            const tokenDate = new Date(this.tokens.expire);
+            if (this.date < tokenDate) {
+                this.authStore.stayLogin()
+            } else {
+                this.authStore.logOut()
+            }
+        };
+        window.addEventListener('resize', this.updateWidth);
+    },
+    beforeDestroy() {
+        window.removeEventListener('resize', this.updateWidth);
     }
 }
+
+
 </script>
 
 <style>
@@ -64,23 +96,29 @@ h2 {
     margin-bottom: 70px;
 }
 
-template {
-    width: 1000px;
+h3 {
+    font-family: "Dela Gothic One", sans-serif;
+    font-size: 30px;
+    text-transform: uppercase;
+    font-weight: 900;
+    line-height: 36px;
+    margin-bottom: 15px;
 }
 
-p {
+/* p {
     font-size: 18px;
     font-weight: 400;
-}
+} */
 
 span {
     font-size: 18px;
     font-weight: 400;
 }
 
-@media screen  and (max-width: 700px){
+@media screen and (max-width: 700px) {
     h1 {
         font-size: 28px;
+        line-height: 34px;
     }
 
     h2 {

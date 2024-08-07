@@ -20,11 +20,15 @@
 
 <script>
 export default {
+    data() {
+        return {
 
+        }
+    }
 }
 </script>
 
-<style>
+<style scoped>
 .footer {
     width: 100%;
     display: flex;
@@ -40,6 +44,7 @@ export default {
     align-items: center;
     height: 90px;
     width: 1320px;
+    margin: 0 10px;
 }
 
 .footer__content__logo {

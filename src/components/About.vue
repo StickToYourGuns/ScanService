@@ -3,17 +3,7 @@
         <div class="about__content">
             <h2>Почему именно мы</h2>
             <div class="about__slider">
-                <!-- <svg @click="moveSlides('left')" xmlns="http://www.w3.org/2000/svg" opacity="0.2" width="36" height="36"
-                    fill="currentColor" class="bi bi-chevron-left" viewBox="0 0 16 16">
-                    <path fill-rule="evenodd"
-                        d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0" />
-                </svg> -->
                 <about-slider :slides="slides"/>
-                <!-- <svg @click="moveSlides('right')" xmlns="http://www.w3.org/2000/svg" opacity="0.2" width="36"
-                    height="36" fill="currentColor" class="bi bi-chevron-right" viewBox="0 0 16 16">
-                    <path fill-rule="evenodd"
-                        d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708" />
-                </svg> -->
             </div>
         </div>
     </section>
@@ -76,6 +66,7 @@ export default {
 }
 
 .about__content {
+    margin: 0 20px;
     display: flex;
     flex-direction: column;
     height: 1000px;
@@ -87,7 +78,7 @@ export default {
 
 .about__slider {
     width: 100%;
-    height: 290px;
+    min-height: 290px;
     gap: 30px;
 }
 
@@ -111,6 +102,7 @@ export default {
 @media screen  and (max-width: 700px){
     .about__content {
         height: 600px;
+        margin: 0 20px;
     }
 }
 </style>
