@@ -1,5 +1,5 @@
 to play:
-https://sticktoyourguns.github.io/SCANService/
+https://sticktoyourguns.github.io/scan-service/
 
 # scan-service
 
