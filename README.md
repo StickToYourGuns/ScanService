@@ -1,4 +1,5 @@
-# scan-service
+to play:
+https://sticktoyourguns.github.io/scan-service/
 
 ## Project setup
 ```
