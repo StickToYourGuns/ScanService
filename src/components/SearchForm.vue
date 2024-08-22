@@ -16,7 +16,7 @@
             <label for="count" class="form__label"><span class="form__label__span required">Количество документов в
                     выдаче</span></label>
             <input @input="setInputValue" class="form__input" type="number" id="count" name="count" required min=1
-                max=1000 placeholder="от 1 до 1000" v-model="count">
+                max=100 placeholder="от 1 до 100" v-model="count">
 
             <label for="dateStart, dateEnd" class="form__label"><span class="form__label__span required">Диапазон
                     поиска</span></label>
