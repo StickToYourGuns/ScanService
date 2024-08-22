@@ -1,6 +1,3 @@
-to play:
-https://sticktoyourguns.github.io/scan-service/
-
 # scan-service
 
 ## Project setup
