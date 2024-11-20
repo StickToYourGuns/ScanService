@@ -1,20 +1,4 @@
 to play:
 https://sticktoyourguns.github.io/scan-service/
 
-## Project setup
-```
-npm install
-```
-
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+Выпускной проект курса SkillFactory. Представляет собой сервис для просмотра новостей по инн. Можно авторизоваться и попробовать. Функционал, не связанный с ключевой задачей поиска, отсутствует (прошу не удивляться почему многие кнопки не работают)
